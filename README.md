@@ -1,6 +1,6 @@
 # Rspec::CommandOption
 
-TODO: Write a gem description
+It is option command builder of 'rspec' for RSpec::Core::RakeTask#rspec_opts
 
 ## Installation
 
@@ -20,7 +20,48 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### The simplest examples
+
+```ruby
+require 'rspec/command_option'
+
+option_example1 = RSpec::CommandOption.new do |opt|
+  opt.dry_run = true
+  opt.color = true
+  opt.tag = "~speed:slow"
+end
+
+puts option_example1.build #=> '--dry-run --color --tag=\~speed:slow'
+```
+
+```ruby
+require 'rspec/command_option'
+
+option_example2 = RSpec::CommandOption.new
+option_example2.dry_run = true
+option_example2.format = 'documentation'
+
+puts option_example2.build #=> '--dry-run --format=documentation'
+```
+
+### With RSpec::Core::RakeTask
+
+```ruby
+require 'rspec/core/rake_task'
+require 'rspec/command_option'
+
+rspec_opt = RSpec::CommandOption.new do |opt|
+  opt.dry_run = true
+  opt.color = true
+  opt.tag = "~speed:slow"
+end
+
+# If you execute this rake command, will execute 'rspec' command with '--dry-run --color --tag=\~speed:slow'
+desc "Run examples"
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = rspec_opts
+end
+```
 
 ## Contributing
 
