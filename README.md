@@ -50,13 +50,13 @@ puts option_example2.build #=> '--dry-run --format=documentation'
 require 'rspec/core/rake_task'
 require 'rspec/command_option'
 
-rspec_opt = RSpec::CommandOption.new do |opt|
+rspec_opts = RSpec::CommandOption.new do |opt|
   opt.dry_run = true
   opt.color = true
   opt.tag = "~speed:slow"
 end
 
-# If you execute this rake command, will execute 'rspec' command with '--dry-run --color --tag=\~speed:slow'
+# If you execute this rake task, It will execute 'rspec' command with '--dry-run --color --tag=\~speed:slow' options
 desc "Run examples"
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = rspec_opts
